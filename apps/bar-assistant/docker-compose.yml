@@ -1,13 +1,14 @@
 services:
   # Web client (Salt Rim) - this is what you open in the browser.
   # Marked as the main service so Runtipi/Traefik route the app domain here.
-  # The API/search URLs are built from ${INTERNAL_IP} (the Tipi host's LAN IP),
-  # so they are browser-reachable with no manual configuration.
+  # The API/search URLs use the API_URL/MEILISEARCH_URL form fields when set
+  # (public HTTPS URLs, for exposing the app over the internet); when those
+  # fields are blank they default to ${INTERNAL_IP} (the host's LAN IP).
   salt-rim:
     image: barassistant/salt-rim:v4
     environment:
-      - API_URL=http://${INTERNAL_IP}:8586
-      - MEILISEARCH_URL=http://${INTERNAL_IP}:8587
+      - API_URL=${API_URL:-http://${INTERNAL_IP}:8586}
+      - MEILISEARCH_URL=${MEILISEARCH_URL:-http://${INTERNAL_IP}:8587}
     depends_on:
       - bar-assistant
     restart: unless-stopped
@@ -20,7 +21,7 @@ services:
   bar-assistant:
     image: barassistant/server:v5
     environment:
-      - APP_URL=http://${INTERNAL_IP}:8586
+      - APP_URL=${API_URL:-http://${INTERNAL_IP}:8586}
       - TZ=${TZ}
       - MEILISEARCH_KEY=${MEILI_MASTER_KEY}
       - MEILISEARCH_HOST=http://meilisearch:7700
