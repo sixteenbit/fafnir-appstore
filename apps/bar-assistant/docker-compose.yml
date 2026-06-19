@@ -1,0 +1,59 @@
+services:
+  # Web client (Salt Rim) - this is what you open in the browser.
+  # Marked as the main service so Runtipi/Traefik route the app domain here.
+  salt-rim:
+    image: barassistant/salt-rim:v4
+    environment:
+      - API_URL=${API_URL}
+      - MEILISEARCH_URL=${MEILISEARCH_URL}
+    depends_on:
+      - bar-assistant
+    restart: unless-stopped
+    x-runtipi:
+      is_main: true
+      internal_port: 8080
+
+  # API server. Exposed on a host port because the Salt Rim frontend
+  # calls it from your browser, not container-to-container.
+  bar-assistant:
+    image: barassistant/server:v5
+    environment:
+      - APP_URL=${API_URL}
+      - MEILISEARCH_KEY=${MEILI_MASTER_KEY}
+      - MEILISEARCH_HOST=http://meilisearch:7700
+      - REDIS_HOST=redis
+      - CACHE_DRIVER=redis
+      - SESSION_DRIVER=redis
+      - ALLOW_REGISTRATION=${ALLOW_REGISTRATION}
+    volumes:
+      - ${APP_DATA_DIR}/data/bar-data:/var/www/cocktails/storage/bar-assistant
+    ports:
+      - "8586:8080"
+    depends_on:
+      - meilisearch
+      - redis
+    restart: unless-stopped
+
+  # Search service. Also exposed on a host port for browser access.
+  meilisearch:
+    image: getmeili/meilisearch:v1.15
+    environment:
+      - MEILI_NO_ANALYTICS=true
+      - MEILI_MASTER_KEY=${MEILI_MASTER_KEY}
+      - MEILI_ENV=production
+    volumes:
+      - ${APP_DATA_DIR}/data/meili-data:/meili_data
+    ports:
+      - "8587:7700"
+    restart: unless-stopped
+
+  # Cache / sessions. Internal only.
+  redis:
+    image: redis:7.4-alpine
+    environment:
+      - ALLOW_EMPTY_PASSWORD=yes
+    restart: unless-stopped
+
+x-runtipi:
+  schema_version: 2
+  overrides: []
