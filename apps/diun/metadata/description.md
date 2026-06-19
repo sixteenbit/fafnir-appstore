@@ -26,6 +26,9 @@ reference.
 
 ## Notes
 
-- Diun mounts `/var/run/docker.sock` (read-only) to discover your containers.
+- Diun mounts the Docker socket (`/var/run/docker.sock`) to discover your
+  containers. Note that access to the Docker socket grants full control over the
+  Docker daemon — the `:ro` mount mode does not make this safe, since the daemon
+  API itself is not read-only. Only install apps you trust with socket access.
 - Its state (the bbolt database of seen image manifests) is persisted under the
   app data directory at `/data`.
