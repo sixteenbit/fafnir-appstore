@@ -20,7 +20,15 @@
       "label": "Downloads path (on the host)",
       "env_variable": "DOWNLOADS_PATH",
       "placeholder": "/mnt/storage/downloads",
-      "hint": "Host path to your downloads folder. This MUST be the same path your Sonarr/Radarr containers see, so Unpackerr finds the same files.",
+      "hint": "Host path to your downloads folder — the same host folder your Sonarr/Radarr containers mount.",
+      "required": true
+    },
+    {
+      "type": "text",
+      "label": "Downloads path (inside the container)",
+      "env_variable": "DOWNLOADS_CONTAINER_PATH",
+      "default": "/downloads",
+      "hint": "Unpackerr accesses files at the path Sonarr/Radarr report via their API, so this MUST equal the in-container download path your *arr apps use (e.g. /downloads or /data/downloads). Match it exactly.",
       "required": true
     },
     {

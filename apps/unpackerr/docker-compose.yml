@@ -16,8 +16,10 @@ services:
       - UN_RADARR_0_URL=${UN_RADARR_0_URL}
       - UN_RADARR_0_API_KEY=${UN_RADARR_0_API_KEY}
     volumes:
-      # Must match the path your Sonarr/Radarr containers use for downloads.
-      - ${DOWNLOADS_PATH}:/downloads
+      # Unpackerr accesses files at the path the *arr apps report via their API,
+      # so the in-container path (right side) must equal the in-container
+      # download path Sonarr/Radarr use — configurable via DOWNLOADS_CONTAINER_PATH.
+      - ${DOWNLOADS_PATH}:${DOWNLOADS_CONTAINER_PATH}
     restart: unless-stopped
     x-runtipi:
       is_main: true

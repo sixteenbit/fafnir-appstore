@@ -8,11 +8,17 @@ files. It integrates with **Sonarr, Radarr, Lidarr, Readarr and Whisparr**.
 This package enables Unpackerr's built-in **web server on port `5656`**, which
 serves a status page and Prometheus metrics — that's what the app tile opens.
 
-## Important: share the downloads folder
+## Important: match the download path
 
-Unpackerr must see your downloads at the **same path** your *arr apps do. During
-install set **Downloads path (on the host)** to that shared host folder; it is
-mounted into the container at `/downloads`.
+Unpackerr extracts files at the path Sonarr/Radarr report through their API —
+which is the path **inside their containers**. So Unpackerr must see those files
+at that same in-container path. Set:
+
+- **Downloads path (on the host)** → the host folder your downloads live in (the
+  same host folder your *arr apps mount).
+- **Downloads path (inside the container)** → the in-container path your *arr
+  apps use, e.g. `/downloads` or `/data/downloads`. This must match exactly, or
+  extraction will fail with "file not found".
 
 Set **PUID/PGID** to the user/group that owns those downloads so Unpackerr can
 read and delete files. Match whatever your Sonarr/Radarr containers use.
