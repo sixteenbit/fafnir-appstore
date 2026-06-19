@@ -1,9 +1,9 @@
 services:
   # Web client (Salt Rim) - this is what you open in the browser.
   # Marked as the main service so Runtipi/Traefik route the app domain here.
-  # The API/search URLs default to ${INTERNAL_IP} (the host's LAN IP) for LAN
-  # access, but fall back to the API_URL/MEILISEARCH_URL form fields when set —
-  # use those public HTTPS URLs to expose the app over the internet.
+  # The API/search URLs use the API_URL/MEILISEARCH_URL form fields when set
+  # (public HTTPS URLs, for exposing the app over the internet); when those
+  # fields are blank they default to ${INTERNAL_IP} (the host's LAN IP).
   salt-rim:
     image: barassistant/salt-rim:v4
     environment:
