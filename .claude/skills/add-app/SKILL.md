@@ -27,7 +27,7 @@ Scaffold a new app under `apps/<id>/`. The argument is the app id/name (e.g. `/a
    **Use built-in variables, don't ask the user for them:** `${INTERNAL_IP}` for browser-reachable backend URLs, `${ROOT_FOLDER_HOST}/media:/media` for media apps, `${TZ}` for timezone, `${APP_DATA_DIR}` for persistent volumes, `${APP_PORT}` for the user-chosen host port. For linuxserver-style images hardcode `PUID=1000`/`PGID=1000`. Only add a `form_field` for genuinely user-specific values (secrets, API keys, app toggles). See CLAUDE.md → "Runtipi built-in variables" for the full list.
 
 5. **Create the files** under `apps/<id>/`:
-   - `config.json` — copy the shape from `apps/whoami/config.json` (simple) or `apps/bar-assistant/config.json` (multi-service / form fields). Set `id` to the folder name, `tipi_version: 1`, `dynamic_config: true`, `available: true`, `supported_architectures: ["arm64", "amd64"]`, and `created_at`/`updated_at` (ms unix timestamps — `date +%s` × 1000).
+   - `config.json` — copy the shape from `apps/whoami/config.json` (simple) or `apps/bar-assistant/config.json` (multi-service / form fields). Set `id` to the folder name, `tipi_version: 1`, `dynamic_config: true`, `available: true`, `supported_architectures: ["arm64", "amd64"]`, and `created_at`/`updated_at` (millisecond unix timestamps — get one with `echo $(( $(date +%s) * 1000 ))`).
    - `docker-compose.yml` — `schema_version: 2`. Mark the main/web service with `x-runtipi: { is_main: true, internal_port: <number> }` (internal_port is a **number**). Include the top-level block:
      ```yaml
      x-runtipi:
