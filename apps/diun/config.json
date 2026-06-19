@@ -1,0 +1,38 @@
+{
+  "name": "Diun",
+  "id": "diun",
+  "available": true,
+  "short_desc": "Get notified when your Docker images have updates available.",
+  "author": "CrazyMax",
+  "port": 8390,
+  "categories": ["utilities"],
+  "description": "Diun (Docker Image Update Notifier) is a small command-line tool that periodically checks the registries behind your running containers and notifies you when a newer image is available. It runs headless — there is no web interface — and watches the local Docker daemon via its socket. By default it only tracks containers labelled diun.enable=true; flip \"Watch all containers by default\" on to track everything. Notification providers (Discord, Telegram, Gotify, email, webhooks, and many more) are configured with DIUN_NOTIF_* environment variables or a config file in the app data directory — see the Diun docs.",
+  "tipi_version": 1,
+  "version": "4.33.0",
+  "source": "https://github.com/crazy-max/diun",
+  "website": "https://crazymax.dev/diun/",
+  "exposable": false,
+  "no_gui": true,
+  "dynamic_config": true,
+  "supported_architectures": ["arm64", "amd64"],
+  "created_at": 1781879500000,
+  "updated_at": 1781879500000,
+  "form_fields": [
+    {
+      "type": "text",
+      "label": "Watch schedule (cron)",
+      "env_variable": "DIUN_WATCH_SCHEDULE",
+      "placeholder": "0 */6 * * *",
+      "hint": "Cron expression for how often to check for image updates. Leave blank to check every 6 hours.",
+      "required": false
+    },
+    {
+      "type": "boolean",
+      "label": "Watch all containers by default",
+      "env_variable": "DIUN_WATCH_BY_DEFAULT",
+      "default": false,
+      "hint": "On: watch every running container. Off: only watch containers labelled diun.enable=true.",
+      "required": false
+    }
+  ]
+}
