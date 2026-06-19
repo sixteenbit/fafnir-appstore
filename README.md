@@ -10,6 +10,7 @@ Requires Runtipi `v4.0.0`+ (apps use dynamic compose `schema_version: 2`).
 | App           | Description                                              |
 | ------------- | ------------------------------------------------------- |
 | bar-assistant | Self-hosted cocktail / home-bar manager (Salt Rim UI)   |
+| unpackerr     | Auto-extracts downloaded archives for Sonarr/Radarr     |
 | whoami        | Tiny test app to confirm the store loads                |
 
 ## Repository layout

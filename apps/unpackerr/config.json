@@ -1,0 +1,89 @@
+{
+  "name": "Unpackerr",
+  "id": "unpackerr",
+  "available": true,
+  "short_desc": "Automatically extracts downloaded archives for Sonarr, Radarr and friends.",
+  "author": "Unpackerr (golift)",
+  "port": 5656,
+  "categories": ["media", "utilities"],
+  "description": "Unpackerr is a daemon that watches your download folder and automatically extracts completed archives (rar/zip/etc), then cleans them up after your *arr apps import the media. It integrates with Sonarr, Radarr, Lidarr, Readarr and Whisparr. This package enables Unpackerr's built-in web server on port 5656, which serves a status page and Prometheus metrics.",
+  "tipi_version": 1,
+  "version": "0.15.2",
+  "source": "https://github.com/Unpackerr/unpackerr",
+  "website": "https://unpackerr.zip",
+  "exposable": true,
+  "dynamic_config": true,
+  "supported_architectures": ["arm64", "amd64"],
+  "form_fields": [
+    {
+      "type": "text",
+      "label": "Downloads path (on the host)",
+      "env_variable": "DOWNLOADS_PATH",
+      "placeholder": "/mnt/storage/downloads",
+      "hint": "Host path to your downloads folder — the same host folder your Sonarr/Radarr containers mount.",
+      "required": true
+    },
+    {
+      "type": "text",
+      "label": "Downloads path (inside the container)",
+      "env_variable": "DOWNLOADS_CONTAINER_PATH",
+      "default": "/downloads",
+      "hint": "Unpackerr accesses files at the path Sonarr/Radarr report via their API, so this MUST equal the in-container download path your *arr apps use (e.g. /downloads or /data/downloads). Match it exactly.",
+      "required": true
+    },
+    {
+      "type": "text",
+      "label": "Timezone",
+      "env_variable": "TZ",
+      "default": "Etc/UTC",
+      "hint": "e.g. America/New_York. Used for log timestamps.",
+      "required": false
+    },
+    {
+      "type": "text",
+      "label": "Run as user ID (PUID)",
+      "env_variable": "PUID",
+      "default": "1000",
+      "hint": "Match the UID that owns your downloads (the same user your *arr apps run as) so Unpackerr can read/delete files.",
+      "required": false
+    },
+    {
+      "type": "text",
+      "label": "Run as group ID (PGID)",
+      "env_variable": "PGID",
+      "default": "1000",
+      "hint": "Match the GID that owns your downloads.",
+      "required": false
+    },
+    {
+      "type": "url",
+      "label": "Sonarr URL",
+      "env_variable": "UN_SONARR_0_URL",
+      "placeholder": "http://sonarr:8989",
+      "hint": "Optional. Leave blank if you don't use Sonarr.",
+      "required": false
+    },
+    {
+      "type": "password",
+      "label": "Sonarr API key",
+      "env_variable": "UN_SONARR_0_API_KEY",
+      "hint": "Sonarr → Settings → General → API Key.",
+      "required": false
+    },
+    {
+      "type": "url",
+      "label": "Radarr URL",
+      "env_variable": "UN_RADARR_0_URL",
+      "placeholder": "http://radarr:7878",
+      "hint": "Optional. Leave blank if you don't use Radarr.",
+      "required": false
+    },
+    {
+      "type": "password",
+      "label": "Radarr API key",
+      "env_variable": "UN_RADARR_0_API_KEY",
+      "hint": "Radarr → Settings → General → API Key.",
+      "required": false
+    }
+  ]
+}

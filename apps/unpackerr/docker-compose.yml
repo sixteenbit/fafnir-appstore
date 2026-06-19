@@ -1,0 +1,30 @@
+services:
+  # Background daemon that extracts completed downloads for the *arr apps.
+  # Its built-in web server (enabled below) serves a status page + Prometheus
+  # metrics on 5656, which is what Runtipi/Traefik routes the app domain to.
+  unpackerr:
+    image: golift/unpackerr:0.15.2
+    user: "${PUID}:${PGID}"
+    environment:
+      - TZ=${TZ}
+      # Enable the web server so there is a port to expose.
+      - UN_WEBSERVER_METRICS=true
+      - UN_WEBSERVER_LISTEN_ADDR=0.0.0.0:5656
+      # *arr integrations (left blank if the form field is empty).
+      - UN_SONARR_0_URL=${UN_SONARR_0_URL}
+      - UN_SONARR_0_API_KEY=${UN_SONARR_0_API_KEY}
+      - UN_RADARR_0_URL=${UN_RADARR_0_URL}
+      - UN_RADARR_0_API_KEY=${UN_RADARR_0_API_KEY}
+    volumes:
+      # Unpackerr accesses files at the path the *arr apps report via their API,
+      # so the in-container path (right side) must equal the in-container
+      # download path Sonarr/Radarr use — configurable via DOWNLOADS_CONTAINER_PATH.
+      - ${DOWNLOADS_PATH}:${DOWNLOADS_CONTAINER_PATH}
+    restart: unless-stopped
+    x-runtipi:
+      is_main: true
+      internal_port: 5656
+
+x-runtipi:
+  schema_version: 2
+  overrides: []
