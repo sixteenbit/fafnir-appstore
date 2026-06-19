@@ -6,7 +6,7 @@
   "author": "Karlo Mikus",
   "port": 8585,
   "categories": ["utilities"],
-  "description": "Bar Assistant is a self-hosted app for managing your home bar. Track your ingredients, discover which cocktails you can make, and browse recipes through the Salt Rim web client. This app bundles the Bar Assistant API server, the Salt Rim frontend, a Meilisearch search service, and Redis for caching and sessions. The browser-reachable API and search URLs are wired up automatically from your Tipi host's IP.",
+  "description": "Bar Assistant is a self-hosted app for managing your home bar. Track your ingredients, discover which cocktails you can make, and browse recipes through the Salt Rim web client. This app bundles the Bar Assistant API server, the Salt Rim frontend, a Meilisearch search service, and Redis for caching and sessions. The browser-reachable API and search URLs are wired up automatically from your Tipi host's LAN IP.",
   "tipi_version": 2,
   "version": "5",
   "source": "https://github.com/bar-assistant/docker",

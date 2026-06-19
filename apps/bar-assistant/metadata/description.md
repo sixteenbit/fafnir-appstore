@@ -18,9 +18,10 @@ those two services are published on host ports (`8586` for the API, `8587` for
 search). Their browser-reachable URLs are wired up automatically from your Tipi
 host's LAN IP (`${INTERNAL_IP}`) — no manual configuration needed.
 
-If you reach Tipi through a custom domain or reverse proxy rather than its LAN
-IP, you may need to override these URLs to match how your browser reaches the
-host.
+This works when you reach Tipi at its LAN IP. If you instead access Tipi through
+a custom domain or reverse proxy, Salt Rim's in-browser calls stay pinned to the
+LAN IP and won't resolve — that setup would need a compose edit (it isn't
+exposed as an install option).
 
 ## First launch
 
