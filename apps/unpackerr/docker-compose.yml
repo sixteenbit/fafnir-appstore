@@ -19,7 +19,6 @@ services:
       - UN_RADARR_0_URL=${UN_RADARR_0_URL}
       - UN_RADARR_0_API_KEY=${UN_RADARR_0_API_KEY}
     volumes:
-      - /etc/localtime:/etc/localtime:ro
       # Same media root the official *arr apps mount, so download paths match.
       - ${ROOT_FOLDER_HOST}/media:/media
     restart: unless-stopped
