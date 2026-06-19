@@ -40,7 +40,7 @@ services:
 
   # Search service. Also exposed on a host port for browser access.
   meilisearch:
-    image: getmeili/meilisearch:v1.15
+    image: getmeili/meilisearch:v1.47
     environment:
       - MEILI_NO_ANALYTICS=true
       - MEILI_MASTER_KEY=${MEILI_MASTER_KEY}
