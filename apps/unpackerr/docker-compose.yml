@@ -1,13 +1,16 @@
 services:
-  # Background daemon that extracts completed downloads for the *arr apps.
+  # Headless daemon that extracts completed downloads for the *arr apps.
+  # It mounts the same ${ROOT_FOLDER_HOST}/media volume as the official Runtipi
+  # Sonarr/Radarr apps, so the paths those apps report via their API resolve to
+  # the same files here. Runs as 1000:1000 to match the files those apps write.
   # Its built-in web server (enabled below) serves a status page + Prometheus
   # metrics on 5656, which is what Runtipi/Traefik routes the app domain to.
   unpackerr:
     image: golift/unpackerr:0.15.2
-    user: "${PUID}:${PGID}"
+    user: "1000:1000"
     environment:
       - TZ=${TZ}
-      # Enable the web server so there is a port to expose.
+      # Enable the web server so there is a port to route to.
       - UN_WEBSERVER_METRICS=true
       - UN_WEBSERVER_LISTEN_ADDR=0.0.0.0:5656
       # *arr integrations (left blank if the form field is empty).
@@ -16,10 +19,9 @@ services:
       - UN_RADARR_0_URL=${UN_RADARR_0_URL}
       - UN_RADARR_0_API_KEY=${UN_RADARR_0_API_KEY}
     volumes:
-      # Unpackerr accesses files at the path the *arr apps report via their API,
-      # so the in-container path (right side) must equal the in-container
-      # download path Sonarr/Radarr use — configurable via DOWNLOADS_CONTAINER_PATH.
-      - ${DOWNLOADS_PATH}:${DOWNLOADS_CONTAINER_PATH}
+      - /etc/localtime:/etc/localtime:ro
+      # Same media root the official *arr apps mount, so download paths match.
+      - ${ROOT_FOLDER_HOST}/media:/media
     restart: unless-stopped
     x-runtipi:
       is_main: true
