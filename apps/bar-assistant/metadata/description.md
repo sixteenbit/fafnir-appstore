@@ -11,13 +11,17 @@ This app bundles four services:
 - **Meilisearch** - powers fast search and filtering
 - **Redis** - caching and session storage
 
-## Important: browser-reachable URLs
+## Browser-reachable URLs (automatic)
 
 Salt Rim runs in your browser and talks to the API and Meilisearch directly, so
 those two services are published on host ports (`8586` for the API, `8587` for
-search). During install you must set **API URL** and **Meilisearch URL** to URLs
-your browser can actually reach, for example `http://<your-tipi-ip>:8586` and
-`http://<your-tipi-ip>:8587`.
+search). Their browser-reachable URLs are wired up automatically from your Tipi
+host's LAN IP (`${INTERNAL_IP}`) — no manual configuration needed.
+
+This works when you reach Tipi at its LAN IP. If you instead access Tipi through
+a custom domain or reverse proxy, Salt Rim's in-browser calls stay pinned to the
+LAN IP and won't resolve — that setup would need a compose edit (it isn't
+exposed as an install option).
 
 ## First launch
 
