@@ -18,6 +18,24 @@ Each app lives in `apps/<id>/` and must contain:
 
 When scaffolding a new app, copy `apps/whoami/` (minimal) or `apps/bar-assistant/` (multi-service with form fields) as the template.
 
+**Before scaffolding, check the official store for an analog.** The [runtipi/runtipi-appstore](https://github.com/runtipi/runtipi-appstore) (`apps/<id>/`, branch `master`) is the source of truth for conventions. Find an app of the same shape and mirror it rather than inventing structure — e.g. `apps/bazarr` or `apps/sonarr` for *arr / media-companion apps, `apps/your-spotify` for a browser frontend that calls a backend on a host port. Note: official apps ship both a legacy `docker-compose.yml` (with manual `traefik` labels) and the modern dynamic one; we only use the modern `x-runtipi` / `schema_version: 2` form.
+
+## Runtipi built-in variables (prefer these over form fields)
+
+Runtipi injects these at runtime — use them in `docker-compose.yml` instead of asking the user for the same value via `form_fields`:
+
+- `${INTERNAL_IP}` — the Tipi host's LAN IP. Build browser-reachable backend URLs from this (e.g. `API_URL=http://${INTERNAL_IP}:8586`) instead of a hand-typed URL form field. (Caveat: it's the LAN IP, so installs behind a custom domain/reverse proxy may need an override.)
+- `${ROOT_FOLDER_HOST}` — the user's configured host storage root. Media apps mount `${ROOT_FOLDER_HOST}/media:/media` so paths line up with the official *arr apps. Don't ask for a host download/media path via a form field.
+- `${TZ}` — timezone. Use `TZ=${TZ}`; don't add a TZ form field.
+- `${APP_DATA_DIR}` — per-app persistent storage (volumes).
+- `${APP_PORT}` — the host port the user picked in the install dialog (the main service is routed automatically via `is_main`/`internal_port`; only reference `${APP_PORT}` for non-main services that also need the chosen port).
+- `${APP_DOMAIN}`, `${LOCAL_DOMAIN}`, `${DNS_IP}` — also available; see official apps for usage.
+
+Conventions worth copying from the official store:
+- For linuxserver-style images, set `PUID=1000` / `PGID=1000` (hardcoded, not form fields). Files those apps write are owned by `1000:1000`, so companion daemons should run as that too.
+- `config.json` carries `created_at` and `updated_at` (ms unix timestamps).
+- Only add a `form_field` for genuinely user-specific values (secrets, API keys, app-specific toggles) — not for anything a built-in variable already provides.
+
 ## Schema gotchas (the validator enforces these — `bun test` catches them)
 
 - Pin image tags — **never** `latest` (Renovate tracks pinned tags).
@@ -31,6 +49,10 @@ When scaffolding a new app, copy `apps/whoami/` (minimal) or `apps/bar-assistant
 ## Version updates
 
 `tipi_version` (integer) is bumped automatically — Renovate detects a new pinned image tag and runs `scripts/update-config.ts <compose-file> <newVersion>`, which increments `tipi_version`, sets `version`, and stamps `updated_at`. Don't hand-edit these for routine image bumps.
+
+For a **manual** functional change (compose edits, form-field changes) with no image bump, increment `tipi_version` yourself and stamp `updated_at` — that's how existing installs are offered the update.
+
+Note: our pinned `@runtipi/common` validator requires `overrides: []` in the top-level `x-runtipi` block; the official store omits it. Keep `overrides: []` here so `bun test` passes.
 
 ## Workflow
 
