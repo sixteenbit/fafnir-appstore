@@ -7,7 +7,7 @@
   "port": 6157,
   "categories": ["development", "utilities"],
   "description": "Opengist is a self-hosted pastebin powered by Git, a lightweight alternative to GitHub Gist. Create, share, and version code snippets; every gist is a Git repository you can clone, pull, and push. Features include syntax highlighting, Markdown and CSV rendering, embeddable gists, OAuth login (GitHub/GitLab/Gitea/OIDC), and full-text search.",
-  "tipi_version": 1,
+  "tipi_version": 2,
   "version": "1.13.1",
   "source": "https://github.com/thomiceli/opengist",
   "website": "https://opengist.io",
@@ -15,6 +15,24 @@
   "dynamic_config": true,
   "supported_architectures": ["arm64", "amd64"],
   "created_at": 1782143885000,
-  "updated_at": 1782143885000,
-  "form_fields": []
+  "updated_at": 1782144415000,
+  "form_fields": [
+    {
+      "type": "random",
+      "label": "Session secret key",
+      "env_variable": "OG_SECRET_KEY",
+      "encoding": "hex",
+      "min": 64,
+      "required": true,
+      "hint": "Auto-generated secret used for the session store and to encrypt MFA data. Leave as generated — pinning it keeps you logged in across restarts/updates."
+    },
+    {
+      "type": "text",
+      "label": "Public URL (for internet access)",
+      "env_variable": "OG_EXTERNAL_URL",
+      "placeholder": "https://gist.example.com",
+      "hint": "Leave BLANK for LAN access (auto-filled from your host IP and chosen port). To expose Opengist over the internet — and for OAuth logins, embeds, and clone URLs to be correct — set this to the public URL that routes to the app.",
+      "required": false
+    }
+  ]
 }
