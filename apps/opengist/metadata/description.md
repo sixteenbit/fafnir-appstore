@@ -15,9 +15,11 @@ you can clone, pull, and push your snippets like any other repo.
 
 ## Configuration
 
-- **Public URL** — leave blank for LAN use (auto-filled from your host IP and
-  the port you pick). Set it to a public URL when exposing Opengist over the
-  internet so OAuth logins, embeds, and clone URLs resolve correctly.
+- **Public URL** — derived automatically from your Runtipi domain (the LAN
+  `host:port`, or your exposed domain over HTTPS), so OAuth logins, embeds, and
+  clone URLs resolve correctly out of the box. The override field is only needed
+  if you front Opengist with an external reverse proxy or tunnel whose hostname
+  differs from the domain Runtipi knows.
 - **Session secret key** — auto-generated; leave as-is. Pinning it keeps
   sessions valid across restarts and updates.
 - **Advanced settings** (OAuth providers, SSH git server, alternate databases)
