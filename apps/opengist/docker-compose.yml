@@ -9,7 +9,7 @@ services:
       - OG_SECRET_KEY=${OG_SECRET_KEY}
       # Auto-derives from Runtipi's domain: LAN → http://ip:port, exposed → https://your-domain.
       # Override field only needed when an external proxy/tunnel hostname differs from that.
-      - OG_EXTERNAL_URL=${OG_EXTERNAL_URL:-${APP_PROTOCOL}://${APP_DOMAIN}}
+      - OG_EXTERNAL_URL=${OG_EXTERNAL_URL:-${APP_PROTOCOL:-http}://${APP_DOMAIN}}
     volumes:
       - ${APP_DATA_DIR}/data/opengist:/opengist
     restart: unless-stopped
