@@ -1,0 +1,18 @@
+services:
+  opengist:
+    image: ghcr.io/thomiceli/opengist:1.13.1
+    environment:
+      - TZ=${TZ}
+      - UID=1000
+      - GID=1000
+      - OG_LOG_LEVEL=info
+    volumes:
+      - ${APP_DATA_DIR}/data/opengist:/opengist
+    restart: unless-stopped
+    x-runtipi:
+      is_main: true
+      internal_port: 6157
+
+x-runtipi:
+  schema_version: 2
+  overrides: []
