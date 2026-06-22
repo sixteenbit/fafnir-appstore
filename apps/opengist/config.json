@@ -1,0 +1,20 @@
+{
+  "name": "Opengist",
+  "id": "opengist",
+  "available": true,
+  "short_desc": "Self-hosted pastebin powered by Git — a personal GitHub Gist.",
+  "author": "Thomas Miceli",
+  "port": 6157,
+  "categories": ["development", "utilities"],
+  "description": "Opengist is a self-hosted pastebin powered by Git, a lightweight alternative to GitHub Gist. Create, share, and version code snippets; every gist is a Git repository you can clone, pull, and push. Features include syntax highlighting, Markdown and CSV rendering, embeddable gists, OAuth login (GitHub/GitLab/Gitea/OIDC), and full-text search.",
+  "tipi_version": 1,
+  "version": "1.13.1",
+  "source": "https://github.com/thomiceli/opengist",
+  "website": "https://opengist.io",
+  "exposable": true,
+  "dynamic_config": true,
+  "supported_architectures": ["arm64", "amd64"],
+  "created_at": 1782143885000,
+  "updated_at": 1782143885000,
+  "form_fields": []
+}
