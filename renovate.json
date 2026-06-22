@@ -46,7 +46,8 @@
         "mysql",
         "monogdb",
         "postgres",
-        "redis"
+        "redis",
+        "getmeili/meilisearch"
       ],
       "enabled": false
     }
