@@ -13,6 +13,18 @@ you can clone, pull, and push your snippets like any other repo.
 - Login with GitHub, GitLab, Gitea, or any OpenID Connect provider
 - Lightweight single binary — no external database required
 
+## Configuration
+
+- **Public URL** — leave blank for LAN use (auto-filled from your host IP and
+  the port you pick). Set it to a public URL when exposing Opengist over the
+  internet so OAuth logins, embeds, and clone URLs resolve correctly.
+- **Session secret key** — auto-generated; leave as-is. Pinning it keeps
+  sessions valid across restarts and updates.
+- **Advanced settings** (OAuth providers, SSH git server, alternate databases)
+  are not surfaced as install fields. Configure them with `OG_*` environment
+  variables or by mounting a `config.yml` — see the
+  [configuration docs](https://opengist.io/docs/configuration/configure.html).
+
 ## Notes
 
 - App data (the SQLite database, repositories, and config) is persisted under
