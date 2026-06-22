@@ -44,7 +44,7 @@
       "matchPackageNames": [
         "mariadb",
         "mysql",
-        "monogdb",
+        "mongodb",
         "postgres",
         "redis",
         "getmeili/meilisearch"
