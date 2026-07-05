@@ -6,10 +6,10 @@ A free, lightweight and easy-to-use home server for your comics and ebooks. Acce
 
 Ubooquity has two web interfaces:
 
-- **Library** — the main app page Runtipi routes to (container port `2202`). This is what your users browse.
-- **Admin** — configuration UI on host port **2203**. Open `http://<your-tipi-ip>:2203/admin/` to add your library folders and users. The linuxserver image serves the pages under `/ubooquity/` (library) and `/admin/` base paths.
+- **Library** — the main app page Runtipi routes to (container port `2202`), served at `http://<your-tipi-ip>:2202/ubooquity/`. This is what your users browse.
+- **Admin** — configuration UI on host port **2203**, served at `http://<your-tipi-ip>:2203/ubooquity/admin`. Use it to add your library folders and users.
 
-On first launch, go to the admin interface to set an admin password and register your comic/ebook folders.
+On first launch, open the admin interface, set an admin password, then register your comic/ebook folders. After that the library UI becomes available.
 
 ## Libraries
 
