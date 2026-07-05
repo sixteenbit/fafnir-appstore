@@ -1,0 +1,30 @@
+services:
+  # Ubooquity comic/ebook server (linuxserver.io image). Runs as 1000:1000 so it
+  # can read the library files the official *arr apps write under the shared
+  # ${ROOT_FOLDER_HOST}/media root. Two web ports: 2202 is the browsable library
+  # UI (the main service Runtipi routes the app domain to), 2203 is the admin
+  # interface used for first-time setup (adding library folders + users), exposed
+  # directly on the host so the browser can reach it.
+  ubooquity:
+    image: lscr.io/linuxserver/ubooquity:3.1.0
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=${TZ}
+      # Blank form field falls back to Ubooquity's built-in 512 MB default.
+      - MAXMEM=${MAXMEM:-512}
+    volumes:
+      - ${APP_DATA_DIR}/data/config:/config
+      - ${ROOT_FOLDER_HOST}/media/books:/books
+      - ${ROOT_FOLDER_HOST}/media/comics:/comics
+    ports:
+      # Admin interface — not the main routed port, so map it explicitly.
+      - "2203:2203"
+    restart: unless-stopped
+    x-runtipi:
+      is_main: true
+      internal_port: 2202
+
+x-runtipi:
+  schema_version: 2
+  overrides: []

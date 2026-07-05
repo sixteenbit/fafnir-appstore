@@ -1,0 +1,29 @@
+{
+  "name": "Ubooquity",
+  "id": "ubooquity",
+  "available": true,
+  "short_desc": "Lightweight home server for your comics and ebooks.",
+  "author": "linuxserver.io",
+  "port": 2202,
+  "categories": ["books", "media"],
+  "description": "Ubooquity is a free, lightweight and easy-to-use home server for your comics and ebooks. Use it to access your files from anywhere, with a tablet, an e-reader, a phone or a computer. It serves a browsable library web UI (port 2202) and a separate admin interface (port 2203) where you configure your library folders and users. This package mounts your books and comics from the shared ${ROOT_FOLDER_HOST}/media root used by the official Runtipi media apps, and runs as 1000:1000 to match the files those apps write.",
+  "tipi_version": 1,
+  "version": "3.1.0",
+  "source": "https://github.com/linuxserver/docker-ubooquity",
+  "website": "https://vaemendis.net/ubooquity/",
+  "exposable": true,
+  "dynamic_config": true,
+  "supported_architectures": ["arm64", "amd64"],
+  "created_at": 1783283334000,
+  "updated_at": 1783283334000,
+  "form_fields": [
+    {
+      "type": "text",
+      "label": "Max memory (MB)",
+      "env_variable": "MAXMEM",
+      "placeholder": "512",
+      "hint": "Optional. Maximum memory Ubooquity may use, in MB. Raise it for very large libraries. Defaults to 512 if left blank.",
+      "required": false
+    }
+  ]
+}
