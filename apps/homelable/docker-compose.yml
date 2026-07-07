@@ -20,9 +20,18 @@ services:
   # for ICMP ping status checks.
   backend:
     image: ghcr.io/pouzor/homelable-backend:2.6.1
+    # Login: the backend has NO built-in default password (AUTH_PASSWORD_HASH
+    # defaults to "" in code, which fails every login), so we bake in the bcrypt
+    # hash for admin/admin. It's written with doubled '$$' so Compose renders it
+    # back to the real '$2b$12$...' hash inside the container. To set your own
+    # password, replace the hash with your bcrypt hash (each '$' doubled to '$$');
+    # generate one with:
+    #   htpasswd -bnBC 12 "" 'yourpassword' | tr -d ':\n' | sed 's/\$/\$\$/g'
     environment:
       - SECRET_KEY=${SECRET_KEY}
       - SQLITE_PATH=/app/data/homelab.db
+      - AUTH_USERNAME=${AUTH_USERNAME:-admin}
+      - AUTH_PASSWORD_HASH=$$2b$$12$$RtMbyw17l4N5UGzeXMNAWuzCaVV.XFBY7ZetWheQhxcBDcxahapkG
       - SCANNER_RANGES=${SCANNER_RANGES:-["192.168.1.0/24"]}
       - CORS_ORIGINS=${CORS_ORIGINS:-["http://${INTERNAL_IP}:${APP_PORT}"]}
       - MCP_SERVICE_KEY=${MCP_SERVICE_KEY}

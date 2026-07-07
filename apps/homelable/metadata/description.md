@@ -19,7 +19,16 @@ This app bundles three services:
 
 ## First login
 
-The default credentials are **`admin` / `admin`**. Sign in and change them in the app after your first login.
+The default credentials are **`admin` / `admin`**.
+
+Authentication is **environment-based** — the backend has no in-app password change and no built-in default (it reads `AUTH_USERNAME` / `AUTH_PASSWORD_HASH` from the environment), so this package bakes in the bcrypt hash for `admin`.
+
+- **Change the username:** set the *Login username* field when installing.
+- **Change the password:** edit the `AUTH_PASSWORD_HASH` value in the app's `docker-compose.yml` to your own bcrypt hash. Because bcrypt hashes contain `$`, each `$` must be doubled to `$$` so Compose renders it correctly. Generate an escaped hash with:
+
+  ```sh
+  htpasswd -bnBC 12 "" 'yourpassword' | tr -d ':\n' | sed 's/\$/\$\$/g'
+  ```
 
 ## Configuration
 
