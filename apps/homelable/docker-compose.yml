@@ -1,0 +1,53 @@
+services:
+  # Frontend (nginx). This is what you open in the browser and is the main
+  # service Runtipi/Traefik route the app domain to. Its bundled nginx config
+  # reverse-proxies /api and the status WebSocket to the backend internally,
+  # so the backend does not need its own host port.
+  frontend:
+    image: ghcr.io/pouzor/homelable-frontend:2.6.1
+    depends_on:
+      - backend
+    restart: unless-stopped
+    x-runtipi:
+      is_main: true
+      internal_port: 80
+
+  # Backend API. Internal only — the browser reaches it through the frontend's
+  # nginx proxy, so it must keep the service name "backend" (nginx proxies to
+  # http://backend:8000). CORS_ORIGINS must list the origin the browser loads
+  # the app from: it defaults to the host LAN IP + chosen port, and can be
+  # overridden with a public HTTPS URL for internet exposure. NET_RAW is needed
+  # for ICMP ping status checks.
+  backend:
+    image: ghcr.io/pouzor/homelable-backend:2.6.1
+    environment:
+      - SECRET_KEY=${SECRET_KEY}
+      - SQLITE_PATH=/app/data/homelab.db
+      - SCANNER_RANGES=${SCANNER_RANGES:-["192.168.1.0/24"]}
+      - CORS_ORIGINS=${CORS_ORIGINS:-["http://${INTERNAL_IP}:${APP_PORT}"]}
+      - MCP_SERVICE_KEY=${MCP_SERVICE_KEY}
+      - TZ=${TZ}
+    volumes:
+      - ${APP_DATA_DIR}/data:/app/data
+    cap_add:
+      - NET_RAW
+    restart: unless-stopped
+
+  # MCP server (optional AI integration). Exposed on host port 8001 so AI
+  # clients like Claude Code/Desktop can read and modify your topology.
+  mcp:
+    image: ghcr.io/pouzor/homelable-mcp:2.6.1
+    environment:
+      - BACKEND_URL=http://backend:8000
+      - MCP_API_KEY=${MCP_API_KEY}
+      - MCP_SERVICE_KEY=${MCP_SERVICE_KEY}
+      - TZ=${TZ}
+    ports:
+      - "8001:8001"
+    depends_on:
+      - backend
+    restart: unless-stopped
+
+x-runtipi:
+  schema_version: 2
+  overrides: []

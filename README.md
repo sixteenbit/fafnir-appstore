@@ -11,6 +11,7 @@ Requires Runtipi `v4.0.0`+ (apps use dynamic compose `schema_version: 2`).
 | ------------- | ------------------------------------------------------- |
 | bar-assistant | Self-hosted cocktail / home-bar manager (Salt Rim UI)   |
 | diun          | Notifies you when your Docker images have updates (headless, no UI) |
+| homelable      | Interactive homelab network map with live status monitoring |
 | opengist      | Self-hosted pastebin powered by Git (a personal GitHub Gist) |
 | ubooquity     | Lightweight home server for your comics and ebooks      |
 | unpackerr     | Auto-extracts downloaded archives for Sonarr/Radarr     |

@@ -1,0 +1,71 @@
+{
+  "name": "Homelable",
+  "id": "homelable",
+  "available": true,
+  "short_desc": "Interactive homelab network map with live status monitoring.",
+  "author": "Pouzor",
+  "port": 8093,
+  "categories": [
+    "network",
+    "utilities"
+  ],
+  "description": "Homelable visualizes your homelab infrastructure as an interactive network diagram with live status monitoring. Map your devices on a pan/zoom canvas, run network scans to discover machines and services, and watch real-time online/offline status via ping, TCP, HTTP, SSH, Prometheus and health-endpoint checks. Integrations import topology from Zigbee2MQTT, Z-Wave JS UI and Proxmox VE. This app bundles the frontend (which proxies the API internally), the backend, and the optional MCP server that lets AI clients like Claude read and modify your topology. First-run login is admin / admin — change it in the app after signing in. For LAN access, allowed browser origins are wired up automatically from your Tipi host's LAN IP and chosen port; to expose the app over the internet, set the optional CORS origins override to your public HTTPS URL.",
+  "tipi_version": 1,
+  "version": "2.6.1",
+  "source": "https://github.com/Pouzor/homelable",
+  "website": "https://github.com/Pouzor/homelable",
+  "exposable": true,
+  "dynamic_config": true,
+  "min_tipi_version": "4.0.0",
+  "supported_architectures": [
+    "arm64",
+    "amd64"
+  ],
+  "created_at": 1783436313000,
+  "updated_at": 1783436313000,
+  "form_fields": [
+    {
+      "type": "random",
+      "label": "Backend secret key",
+      "env_variable": "SECRET_KEY",
+      "encoding": "hex",
+      "min": 64,
+      "required": true,
+      "hint": "Auto-generated secret used by the backend for sessions/encryption. Leave as generated."
+    },
+    {
+      "type": "text",
+      "label": "Network scan ranges",
+      "env_variable": "SCANNER_RANGES",
+      "placeholder": "[\"192.168.1.0/24\"]",
+      "hint": "JSON array of CIDR ranges the scanner sweeps. Set this to match your LAN subnet, e.g. [\"10.0.0.0/24\"] or [\"192.168.1.0/24\",\"192.168.2.0/24\"]. Leave blank to default to [\"192.168.1.0/24\"].",
+      "required": false
+    },
+    {
+      "type": "text",
+      "label": "Allowed browser origins override (for internet access)",
+      "env_variable": "CORS_ORIGINS",
+      "placeholder": "[\"https://homelable.example.com\"]",
+      "hint": "Leave BLANK for LAN access (auto-filled from your host IP and chosen port). To expose the app over the internet, set this to a JSON array with the public HTTPS URL you reach it on, e.g. [\"https://homelable.example.com\"].",
+      "required": false
+    },
+    {
+      "type": "random",
+      "label": "MCP API key",
+      "env_variable": "MCP_API_KEY",
+      "encoding": "hex",
+      "min": 32,
+      "required": true,
+      "hint": "Auto-generated key that AI clients (e.g. Claude) use to authenticate to the MCP server on port 8001. Copy it from this app's env if you want to use the MCP integration."
+    },
+    {
+      "type": "random",
+      "label": "MCP service key",
+      "env_variable": "MCP_SERVICE_KEY",
+      "encoding": "hex",
+      "min": 32,
+      "required": true,
+      "hint": "Auto-generated internal key the MCP server uses to authenticate to the backend. Leave as generated."
+    }
+  ]
+}
