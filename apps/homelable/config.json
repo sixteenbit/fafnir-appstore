@@ -9,8 +9,8 @@
     "network",
     "utilities"
   ],
-  "description": "Homelable visualizes your homelab infrastructure as an interactive network diagram with live status monitoring. Map your devices on a pan/zoom canvas, run network scans to discover machines and services, and watch real-time online/offline status via ping, TCP, HTTP, SSH, Prometheus and health-endpoint checks. Integrations import topology from Zigbee2MQTT, Z-Wave JS UI and Proxmox VE. This app bundles the frontend (which proxies the API internally), the backend, and an MCP server (exposed on port 8001) that lets AI clients like Claude read and modify your topology — ignore it if you don't use AI integrations. First-run login is admin / admin — change it in the app after signing in. For LAN access, allowed browser origins are wired up automatically from your Tipi host's LAN IP and chosen port; to expose the app over the internet, set the optional CORS origins override to your public HTTPS URL.",
-  "tipi_version": 1,
+  "description": "Homelable visualizes your homelab infrastructure as an interactive network diagram with live status monitoring. Map your devices on a pan/zoom canvas, run network scans to discover machines and services, and watch real-time online/offline status via ping, TCP, HTTP, SSH, Prometheus and health-endpoint checks. Integrations import topology from Zigbee2MQTT, Z-Wave JS UI and Proxmox VE. This app bundles the frontend (which proxies the API internally), the backend, and an MCP server (exposed on port 8001) that lets AI clients like Claude read and modify your topology — ignore it if you don't use AI integrations. First-run login is admin / admin (authentication is env-based — there is no in-app password change; set the username via the optional field and change the password by editing the app's compose, see the description). For LAN access, allowed browser origins are wired up automatically from your Tipi host's LAN IP and chosen port; to expose the app over the internet, set the optional CORS origins override to your public HTTPS URL.",
+  "tipi_version": 2,
   "version": "2.6.1",
   "source": "https://github.com/Pouzor/homelable",
   "website": "https://github.com/Pouzor/homelable",
@@ -22,7 +22,7 @@
     "amd64"
   ],
   "created_at": 1783436313000,
-  "updated_at": 1783436313000,
+  "updated_at": 1783438326000,
   "form_fields": [
     {
       "type": "random",
@@ -32,6 +32,14 @@
       "min": 64,
       "required": true,
       "hint": "Auto-generated secret used by the backend for sessions/encryption. Leave as generated."
+    },
+    {
+      "type": "text",
+      "label": "Login username",
+      "env_variable": "AUTH_USERNAME",
+      "placeholder": "admin",
+      "hint": "Username for signing in. Leave blank to use 'admin'. The password defaults to 'admin' and can only be changed by editing the app's compose (see description).",
+      "required": false
     },
     {
       "type": "text",
