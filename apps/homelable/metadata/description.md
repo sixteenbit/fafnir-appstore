@@ -7,7 +7,7 @@ Homelable is a self-hosted app that visualizes your homelab infrastructure as an
 - **Network discovery & monitoring** — scan your LAN to identify machines, devices and services, with continuous health checks via ping, TCP, HTTP/HTTPS, SSH, Prometheus and health endpoints. Online/offline status renders in real time on the canvas.
 - **Smart integrations** — import topology from Zigbee2MQTT, Z-Wave JS UI and Proxmox VE (hosts, VMs, LXC containers), plus MQTT broker connectivity for wireless devices.
 - **Visualization & sharing** — customizable node designs with style templates, a read-only public Live View, PNG export, and an interactive pan/zoom canvas.
-- **MCP server** — AI clients such as Claude Code and Claude Desktop can read and modify your topology through the bundled MCP server on host port `8001`.
+- **MCP server** — AI clients such as Claude Code and Claude Desktop can read and modify your topology through the bundled MCP server on host port `8001`. It always runs; just ignore it if you don't use AI integrations.
 
 ## Architecture
 
@@ -15,7 +15,7 @@ This app bundles three services:
 
 - **frontend** — the nginx web UI (the main service). It reverse-proxies `/api` and the live-status WebSocket to the backend internally.
 - **backend** — the API and SQLite datastore. Internal only; reached through the frontend proxy. Runs with the `NET_RAW` capability so ICMP ping checks work.
-- **mcp** — the optional MCP server for AI integrations, exposed on host port `8001`.
+- **mcp** — the MCP server for AI integrations, exposed on host port `8001`. It always runs; leave it be if you don't connect an AI client.
 
 ## First login
 
