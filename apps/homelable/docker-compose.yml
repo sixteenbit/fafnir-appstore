@@ -4,7 +4,7 @@ services:
   # reverse-proxies /api and the status WebSocket to the backend internally,
   # so the backend does not need its own host port.
   frontend:
-    image: ghcr.io/pouzor/homelable-frontend:2.6.1
+    image: ghcr.io/pouzor/homelable-frontend:3.1.2
     depends_on:
       - backend
     restart: unless-stopped
@@ -19,7 +19,7 @@ services:
   # overridden with a public HTTPS URL for internet exposure. NET_RAW is needed
   # for ICMP ping status checks.
   backend:
-    image: ghcr.io/pouzor/homelable-backend:2.6.1
+    image: ghcr.io/pouzor/homelable-backend:3.1.2
     # Login: the backend has NO built-in default password (AUTH_PASSWORD_HASH
     # defaults to "" in code, which fails every login), so we bake in the bcrypt
     # hash for admin/admin. It's written with doubled '$$' so Compose renders it
@@ -45,7 +45,7 @@ services:
   # MCP server (optional AI integration). Exposed on host port 8001 so AI
   # clients like Claude Code/Desktop can read and modify your topology.
   mcp:
-    image: ghcr.io/pouzor/homelable-mcp:2.6.1
+    image: ghcr.io/pouzor/homelable-mcp:3.1.2
     environment:
       - BACKEND_URL=http://backend:8000
       - MCP_API_KEY=${MCP_API_KEY}
