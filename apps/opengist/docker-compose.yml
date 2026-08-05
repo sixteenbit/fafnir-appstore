@@ -1,6 +1,6 @@
 services:
   opengist:
-    image: ghcr.io/thomiceli/opengist:1.13.1
+    image: ghcr.io/thomiceli/opengist:1.15.1
     environment:
       - TZ=${TZ}
       - UID=1000
