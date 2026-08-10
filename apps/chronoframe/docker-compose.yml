@@ -1,0 +1,20 @@
+services:
+  chronoframe:
+    image: ghcr.io/hoshinosuzumi/chronoframe:0.14.1
+    environment:
+      - TZ=${TZ}
+      - CFRAME_ADMIN_EMAIL=${CFRAME_ADMIN_EMAIL}
+      - CFRAME_ADMIN_PASSWORD=${CFRAME_ADMIN_PASSWORD}
+      - NUXT_SESSION_PASSWORD=${NUXT_SESSION_PASSWORD}
+      - NUXT_STORAGE_PROVIDER=local
+      - NUXT_PROVIDER_LOCAL_PATH=/app/data/storage
+      - NUXT_PROVIDER_LOCAL_BASE_URL=/storage
+    volumes:
+      - ${APP_DATA_DIR}/data:/app/data
+    x-runtipi:
+      is_main: true
+      internal_port: 3000
+
+x-runtipi:
+  schema_version: 2
+  overrides: []

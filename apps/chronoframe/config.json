@@ -1,0 +1,51 @@
+{
+  "name": "ChronoFrame",
+  "id": "chronoframe",
+  "available": true,
+  "short_desc": "Self-hosted photo gallery with EXIF, geolocation, and an explore map.",
+  "author": "Timothy Yin",
+  "port": 8590,
+  "categories": [
+    "photography"
+  ],
+  "description": "ChronoFrame is a self-hosted personal gallery for managing and sharing photos. It parses EXIF metadata, supports Live/Motion Photos, recognizes shooting locations, and presents everything on a timeline and an explore map. This install uses local storage under the app's data directory; S3 and OpenList backends are available via environment overrides. Sign in with the admin email and password you set during install.",
+  "tipi_version": 1,
+  "version": "0.14.1",
+  "source": "https://github.com/HoshinoSuzumi/chronoframe",
+  "website": "https://chronoframe.bh8.ga",
+  "exposable": true,
+  "dynamic_config": true,
+  "min_tipi_version": "4.0.0",
+  "supported_architectures": [
+    "arm64",
+    "amd64"
+  ],
+  "created_at": 1786368207000,
+  "updated_at": 1786368207000,
+  "form_fields": [
+    {
+      "type": "email",
+      "label": "Admin email",
+      "env_variable": "CFRAME_ADMIN_EMAIL",
+      "required": true,
+      "hint": "Email address for the initial admin account."
+    },
+    {
+      "type": "password",
+      "label": "Admin password",
+      "env_variable": "CFRAME_ADMIN_PASSWORD",
+      "min": 8,
+      "required": true,
+      "hint": "Password for the initial admin account."
+    },
+    {
+      "type": "random",
+      "label": "Session password",
+      "env_variable": "NUXT_SESSION_PASSWORD",
+      "encoding": "hex",
+      "min": 32,
+      "required": true,
+      "hint": "Auto-generated key used to encrypt session data. Leave as generated."
+    }
+  ]
+}

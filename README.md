@@ -10,6 +10,7 @@ Requires Runtipi `v4.0.0`+ (apps use dynamic compose `schema_version: 2`).
 | App           | Description                                              |
 | ------------- | ------------------------------------------------------- |
 | bar-assistant | Self-hosted cocktail / home-bar manager (Salt Rim UI)   |
+| chronoframe   | Self-hosted photo gallery with EXIF, geolocation, and an explore map |
 | diun          | Notifies you when your Docker images have updates (headless, no UI) |
 | homelable     | Interactive homelab network map with live status monitoring |
 | opengist      | Self-hosted pastebin powered by Git (a personal GitHub Gist) |
