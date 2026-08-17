@@ -5,7 +5,7 @@ services:
   # (public HTTPS URLs, for exposing the app over the internet); when those
   # fields are blank they default to ${INTERNAL_IP} (the host's LAN IP).
   salt-rim:
-    image: barassistant/salt-rim:v4
+    image: barassistant/salt-rim:v5
     environment:
       - API_URL=${API_URL:-http://${INTERNAL_IP}:8586}
       - MEILISEARCH_URL=${MEILISEARCH_URL:-http://${INTERNAL_IP}:8587}
