@@ -19,7 +19,7 @@ services:
   # overridden with a public HTTPS URL for internet exposure. NET_RAW is needed
   # for ICMP ping status checks.
   backend:
-    image: ghcr.io/pouzor/homelable-backend:3.1.2
+    image: ghcr.io/pouzor/homelable-backend:3.3.5
     # Login: the backend has NO built-in default password (AUTH_PASSWORD_HASH
     # defaults to "" in code, which fails every login), so we bake in the bcrypt
     # hash for admin/admin. It's written with doubled '$$' so Compose renders it
