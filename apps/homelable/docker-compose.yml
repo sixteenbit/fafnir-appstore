@@ -45,7 +45,7 @@ services:
   # MCP server (optional AI integration). Exposed on host port 8001 so AI
   # clients like Claude Code/Desktop can read and modify your topology.
   mcp:
-    image: ghcr.io/pouzor/homelable-mcp:3.1.2
+    image: ghcr.io/pouzor/homelable-mcp:3.3.5
     environment:
       - BACKEND_URL=http://backend:8000
       - MCP_API_KEY=${MCP_API_KEY}
