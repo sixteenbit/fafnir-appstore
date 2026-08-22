@@ -10,8 +10,8 @@
     "utilities"
   ],
   "description": "Homelable visualizes your homelab infrastructure as an interactive network diagram with live status monitoring. Map your devices on a pan/zoom canvas, run network scans to discover machines and services, and watch real-time online/offline status via ping, TCP, HTTP, SSH, Prometheus and health-endpoint checks. Integrations import topology from Zigbee2MQTT, Z-Wave JS UI and Proxmox VE. This app bundles the frontend (which proxies the API internally), the backend, and an MCP server (exposed on port 8001) that lets AI clients like Claude read and modify your topology — ignore it if you don't use AI integrations. First-run login is admin / admin (authentication is env-based — there is no in-app password change; set the username via the optional field and change the password by editing the app's compose, see the description). For LAN access, allowed browser origins are wired up automatically from your Tipi host's LAN IP and chosen port; to expose the app over the internet, set the optional CORS origins override to your public HTTPS URL.",
-  "tipi_version": 3,
-  "version": "3.1.2",
+  "tipi_version": 4,
+  "version": "3.3.5",
   "source": "https://github.com/Pouzor/homelable",
   "website": "https://github.com/Pouzor/homelable",
   "exposable": true,
@@ -22,7 +22,7 @@
     "amd64"
   ],
   "created_at": 1783436313000,
-  "updated_at": 1785716558257,
+  "updated_at": 1787367397960,
   "form_fields": [
     {
       "type": "random",
