@@ -1,0 +1,88 @@
+services:
+  # Single public entrypoint. Serves Outline at / and the bundled OIDC
+  # provider under /uc, so both live on one origin and the OIDC callback
+  # resolves without a second domain. Marked main so Runtipi/Traefik route
+  # the app domain here.
+  outline-nginx:
+    image: nginx:1.31-alpine
+    volumes:
+      - ${APP_DATA_DIR}/data/nginx/:/etc/nginx/conf.d/:ro
+      - ${APP_DATA_DIR}/data/uc/static_root:/uc/static_root:ro
+    depends_on:
+      - outline
+      - outline-oidc
+    restart: unless-stopped
+    x-runtipi:
+      is_main: true
+      internal_port: 80
+
+  # Outline itself. Not published on a host port: nginx proxies to it over
+  # the app's private network. URL must match the domain you expose, since
+  # Outline builds absolute links and the OIDC redirect URI from it.
+  outline:
+    image: outlinewiki/outline:1.9.2
+    environment:
+      - DATABASE_URL=postgres://outline:${OUTLINE_PG_PASSWORD}@outline-postgres:5432/outline
+      - REDIS_URL=redis://outline-redis:6379
+      - SECRET_KEY=${OUTLINE_SECRET_KEY}
+      - UTILS_SECRET=${OUTLINE_UTILS_SECRET}
+      - URL=https://${APP_DOMAIN}
+      - FORCE_HTTPS=false
+      - FILE_STORAGE=local
+      - FILE_STORAGE_UPLOAD_MAX_SIZE=26214400
+      - PGSSLMODE=disable
+      - OIDC_CLIENT_ID=${OUTLINE_OIDC_CLID}
+      - OIDC_CLIENT_SECRET=${OUTLINE_OIDC_CLKEY}
+      - OIDC_AUTH_URI=https://${APP_DOMAIN}/uc/oauth/authorize/
+      - OIDC_TOKEN_URI=http://outline-oidc:8000/oauth/token/
+      - OIDC_USERINFO_URI=http://outline-oidc:8000/oauth/userinfo/
+      - OIDC_USERNAME_CLAIM=preferred_username
+      - OIDC_DISPLAY_NAME=OpenID
+      - OIDC_SCOPES=openid profile email
+    volumes:
+      - ${APP_DATA_DIR}/data/outline:/var/lib/outline/data
+    depends_on:
+      - outline-postgres
+      - outline-redis
+    restart: unless-stopped
+
+  # Login provider. Outline has no local signup, so this small Django OIDC
+  # server holds the account created from the username/password form fields.
+  # Its client is seeded from data/oidc-config.json.template at install.
+  outline-oidc:
+    image: ghcr.io/sergi0g/oidc-provider:v0.2.0
+    environment:
+      - LANGUAGE_CODE=en-us
+      - TIME_ZONE=UTC
+      - FORCE_SCRIPT_NAME=/uc
+      - SECRET_KEY=${OUTLINE_OIDC_SECRET}
+      - DJANGO_SUPERUSER_USERNAME=${OUTLINE_USER}
+      - DJANGO_SUPERUSER_PASSWORD=${OUTLINE_PASSWORD}
+      - DJANGO_SUPERUSER_EMAIL=user@outline.localhost
+      - INITIAL_DATA=oidc-config.json
+      - DOMAIN=https://${APP_DOMAIN}
+    volumes:
+      - ${APP_DATA_DIR}/data/oidc-config.json:/app/oidc-config.json:ro
+      - ${APP_DATA_DIR}/data/uc/db:/app/db
+      - ${APP_DATA_DIR}/data/uc/static_root:/app/static_root
+    restart: unless-stopped
+
+  # Document store. Internal only.
+  outline-postgres:
+    image: postgres:16-alpine
+    environment:
+      - POSTGRES_USER=outline
+      - POSTGRES_PASSWORD=${OUTLINE_PG_PASSWORD}
+      - POSTGRES_DB=outline
+    volumes:
+      - ${APP_DATA_DIR}/data/db:/var/lib/postgresql/data
+    restart: unless-stopped
+
+  # Websockets, queues, and cache. Internal only.
+  outline-redis:
+    image: redis:7-alpine
+    restart: unless-stopped
+
+x-runtipi:
+  schema_version: 2
+  overrides: []

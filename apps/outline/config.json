@@ -1,0 +1,87 @@
+{
+  "name": "Outline",
+  "id": "outline",
+  "available": true,
+  "short_desc": "A fast, collaborative knowledge base for your team.",
+  "author": "outline",
+  "port": 8405,
+  "categories": [
+    "utilities"
+  ],
+  "description": "Outline is a self-hosted knowledge base and wiki, a solid alternative to Notion or Confluence. This bundle ships Outline itself plus PostgreSQL, Redis, a small built-in OIDC provider for login, and an nginx reverse proxy that serves both on a single origin. Outline has no local account signup, so the bundled OIDC provider supplies the sign-in flow: you set a username and password at install time. Because Outline builds absolute URLs and OIDC callbacks from its configured domain, this app must be exposed on its own domain over HTTPS.",
+  "tipi_version": 1,
+  "version": "1.9.2",
+  "source": "https://github.com/outline/outline",
+  "website": "https://getoutline.com",
+  "exposable": true,
+  "force_expose": true,
+  "dynamic_config": true,
+  "min_tipi_version": "4.5.0",
+  "supported_architectures": [
+    "arm64",
+    "amd64"
+  ],
+  "created_at": 1787690858000,
+  "updated_at": 1787690858000,
+  "form_fields": [
+    {
+      "type": "text",
+      "label": "Username",
+      "env_variable": "OUTLINE_USER",
+      "min": 3,
+      "max": 50,
+      "required": true,
+      "hint": "The username for your first Outline account. You sign in with it through the bundled OIDC provider."
+    },
+    {
+      "type": "password",
+      "label": "Password",
+      "env_variable": "OUTLINE_PASSWORD",
+      "min": 12,
+      "required": true,
+      "hint": "Password for the account above. Choose something strong: this login is reachable from wherever you expose the app."
+    },
+    {
+      "type": "random",
+      "label": "Outline secret key",
+      "env_variable": "OUTLINE_SECRET_KEY",
+      "min": 64,
+      "hint": "Auto-generated. Signs sessions. Leave as generated."
+    },
+    {
+      "type": "random",
+      "label": "Outline utils secret",
+      "env_variable": "OUTLINE_UTILS_SECRET",
+      "min": 32,
+      "hint": "Auto-generated. Leave as generated."
+    },
+    {
+      "type": "random",
+      "label": "Database password",
+      "env_variable": "OUTLINE_PG_PASSWORD",
+      "min": 32,
+      "hint": "Auto-generated PostgreSQL password. Leave as generated."
+    },
+    {
+      "type": "random",
+      "label": "OIDC client ID",
+      "env_variable": "OUTLINE_OIDC_CLID",
+      "min": 32,
+      "hint": "Auto-generated. Leave as generated."
+    },
+    {
+      "type": "random",
+      "label": "OIDC client secret",
+      "env_variable": "OUTLINE_OIDC_CLKEY",
+      "min": 32,
+      "hint": "Auto-generated. Leave as generated."
+    },
+    {
+      "type": "random",
+      "label": "OIDC provider secret",
+      "env_variable": "OUTLINE_OIDC_SECRET",
+      "min": 32,
+      "hint": "Auto-generated. Django secret key for the bundled OIDC provider. Leave as generated."
+    }
+  ]
+}
