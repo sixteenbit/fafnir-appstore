@@ -14,6 +14,7 @@ Requires Runtipi `v4.0.0`+ (apps use dynamic compose `schema_version: 2`).
 | diun          | Notifies you when your Docker images have updates (headless, no UI) |
 | homelable     | Interactive homelab network map with live status monitoring |
 | opengist      | Self-hosted pastebin powered by Git (a personal GitHub Gist) |
+| outline       | Self-hosted team knowledge base / wiki (Notion alternative) |
 | ubooquity     | Lightweight home server for your comics and ebooks      |
 | unpackerr     | Auto-extracts downloaded archives for Sonarr/Radarr     |
 | whoami        | Tiny test app to confirm the store loads                |
@@ -28,6 +29,8 @@ apps/
     metadata/
       description.md
       logo.jpg           # square 1:1
+    data/                # optional; copied to the app's data dir on install
+                         # (*.template files get {{VAR}} substitution)
 __tests__/apps.test.ts   # validates every app's config + compose
 scripts/update-config.ts # renovate bumps versions via this
 ```
@@ -50,6 +53,16 @@ Salt Rim runs in your browser and calls the API and Meilisearch directly, so
 those are published on host ports. At install set **API URL** and
 **Meilisearch URL** to your Tipi's LAN IP, e.g. `http://192.168.1.10:8586`
 and `http://192.168.1.10:8587`. Full notes in `apps/bar-assistant/metadata/description.md`.
+
+## outline install notes
+
+Outline must be exposed on its own domain over HTTPS (the app is
+`force_expose`); it can't run as a plain LAN app on an IP and port. It has no
+local account signup, so the bundle ships a small OIDC provider: set a
+**Username** and **Password** at install, then pick **OpenID** on the Outline
+login page. Defaults to host port `8405`, so it can run alongside the official
+store's Outline (which defaults to `8404`) if you give each its own domain.
+Full notes in `apps/outline/metadata/description.md`.
 
 ## Tests
 

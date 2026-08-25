@@ -47,7 +47,9 @@
         "mongodb",
         "postgres",
         "redis",
-        "getmeili/meilisearch"
+        "getmeili/meilisearch",
+        "nginx",
+        "ghcr.io/sergi0g/oidc-provider"
       ],
       "enabled": false
     }
