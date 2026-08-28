@@ -19,7 +19,7 @@ services:
   # API server. Exposed on a host port because the Salt Rim frontend
   # calls it from your browser, not container-to-container.
   bar-assistant:
-    image: barassistant/server:v5
+    image: barassistant/server:v6
     environment:
       - APP_URL=${API_URL:-http://${INTERNAL_IP}:8586}
       - TZ=${TZ}
