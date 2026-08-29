@@ -5,13 +5,19 @@
   "short_desc": "Tiny Go server that prints OS info and the HTTP request.",
   "author": "traefik",
   "port": 8382,
-  "categories": ["utilities"],
+  "categories": [
+    "utilities"
+  ],
   "description": "Tiny Go webserver that prints OS information and the HTTP request to output. Handy for testing that your custom app store works.",
-  "tipi_version": 1,
-  "version": "v1.11.0",
+  "tipi_version": 2,
+  "version": "v1.12.0",
   "source": "https://github.com/traefik/whoami",
   "exposable": true,
   "dynamic_config": true,
-  "supported_architectures": ["arm64", "amd64"],
-  "form_fields": []
+  "supported_architectures": [
+    "arm64",
+    "amd64"
+  ],
+  "form_fields": [],
+  "updated_at": 1785388344075
 }
