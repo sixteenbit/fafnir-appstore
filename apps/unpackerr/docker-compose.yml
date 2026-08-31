@@ -6,7 +6,7 @@ services:
   # Its built-in web server (enabled below) serves a status page + Prometheus
   # metrics on 5656, which is what Runtipi/Traefik routes the app domain to.
   unpackerr:
-    image: golift/unpackerr:0.15.2
+    image: golift/unpackerr:v0.16.1
     user: "1000:1000"
     environment:
       - TZ=${TZ}
