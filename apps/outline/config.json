@@ -9,8 +9,8 @@
     "utilities"
   ],
   "description": "Outline is a self-hosted knowledge base and wiki, a solid alternative to Notion or Confluence. This bundle ships Outline itself plus PostgreSQL, Redis, a small built-in OIDC provider for login, and an nginx reverse proxy that serves both on a single origin. Outline has no local account signup, so the bundled OIDC provider supplies the sign-in flow: you set a username and password at install time. Because Outline builds absolute URLs and OIDC callbacks from its configured domain, this app must be exposed on its own domain over HTTPS.",
-  "tipi_version": 1,
-  "version": "1.9.2",
+  "tipi_version": 2,
+  "version": "1.10.1",
   "source": "https://github.com/outline/outline",
   "website": "https://getoutline.com",
   "exposable": true,
@@ -22,7 +22,7 @@
     "amd64"
   ],
   "created_at": 1787690858000,
-  "updated_at": 1787690858000,
+  "updated_at": 1789024114300,
   "form_fields": [
     {
       "type": "text",
