@@ -20,7 +20,7 @@ services:
   # the app's private network. URL must match the domain you expose, since
   # Outline builds absolute links and the OIDC redirect URI from it.
   outline:
-    image: outlinewiki/outline:1.9.2
+    image: outlinewiki/outline:1.10.1
     environment:
       - DATABASE_URL=postgres://outline:${OUTLINE_PG_PASSWORD}@outline-postgres:5432/outline
       - REDIS_URL=redis://outline-redis:6379
