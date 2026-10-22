@@ -9,8 +9,8 @@
     "photography"
   ],
   "description": "ChronoFrame is a self-hosted personal gallery for managing and sharing photos. It parses EXIF metadata, supports Live/Motion Photos, recognizes shooting locations, and presents everything on a timeline and an explore map. This install uses local storage under the app's data directory; S3 and OpenList backends are available via environment overrides. Sign in with the admin email and password you set during install.",
-  "tipi_version": 1,
-  "version": "0.14.1",
+  "tipi_version": 2,
+  "version": "1.0.2",
   "source": "https://github.com/HoshinoSuzumi/chronoframe",
   "website": "https://chronoframe.bh8.ga",
   "exposable": true,
@@ -21,7 +21,7 @@
     "amd64"
   ],
   "created_at": 1786368207000,
-  "updated_at": 1786368207000,
+  "updated_at": 1792653521025,
   "form_fields": [
     {
       "type": "email",

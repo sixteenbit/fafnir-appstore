@@ -1,6 +1,6 @@
 services:
   chronoframe:
-    image: ghcr.io/hoshinosuzumi/chronoframe:0.14.1
+    image: ghcr.io/hoshinosuzumi/chronoframe:1.0.2
     environment:
       - TZ=${TZ}
       - CFRAME_ADMIN_EMAIL=${CFRAME_ADMIN_EMAIL}
